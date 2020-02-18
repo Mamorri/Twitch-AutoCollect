@@ -40,16 +40,16 @@ IfWinExist %TwitchChannel%
     WinActivate %TwitchChannel%
 	WinMaximize 
 
-    ;Loop %RCP%
-    ;{
-        Sleep 500
+    Loop 
+    {
+        Sleep 300000
         Click %RCP_x% %RCP_y% 2
        ; Sleep 500
        ; Click %Buy_Confirmation_x% %Buy_Confirmation_y%
        ; Sleep 7000
        ; Click %Continue_x% %Continue_y%
        ; Sleep 500
-    ;}
+    }
     
 }
 else
