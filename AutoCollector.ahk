@@ -53,8 +53,10 @@ Loop
         WinMaximize, %FoundWindow%
         Sleep 1000
         Click %RCP_x% %RCP_y% 1
-        Sleep 7000
-        ; Sleep 305000
+        Sleep 1000
+        ; WinMinimize, %FoundWindow%
+        ; Sleep 7000
+        Sleep 305000
     }
     else
     {
