@@ -32,23 +32,23 @@
 ; RCP_y = 1030
 
 ;Declare Twitch Channel
-TwitchChannel := "loltyler1 - Twitch"
+;TwitchChannel := "loltyler1 - Twitch"
 
 
 Gui, Add, Text,, Resolution Width:
 Gui, Add, Text,, Resolution Height:
-
+Gui, Add, Text,, Channel Name:
 ; Gui, Add, Edit, w40 Number vResWidth ym, 1920  ; The ym option starts a new column of controls.
 ; Gui, Add, Edit, w40 Number vResHeight, 1080
 Gui, Add, Edit, w40 Number vResWidth ym, 1690  ; The ym option starts a new column of controls.
 Gui, Add, Edit, w40 Number vResHeight, 1030
-
+Gui, Add, Edit, w300 Limit vChannelName, Maximilian_DOOD
 Gui, Add, Button, default xm, OK
 Gui, Show,, Twitch AutoCollector
 return ;End auto-execution, wait for user input
 
 GuiClose:
-; ExitApp
+ExitApp
 ButtonOK:
 Gui, submit
 
@@ -56,6 +56,10 @@ Gui, submit
 ; {   
 ;     WinActivate %TwitchChannel%
 ; 	WinMaximize 
+
+; TwitchChannel := %ChannelName% + " - Twitch"
+TwitchChannel = %ChannelName%
+TwitchChannel = %TwitchChannel% - Twitch
 
 ;Pixel Values For a 1920x1080 resolution
 RCP_x = %ResWidth% 
@@ -76,8 +80,8 @@ RCP_y = %ResHeight%
             ; Sleep 300000
             Sleep 2000
             Click %RCP_x% %RCP_y% 1
-            Sleep 2000
-            Sleep 300000
+            ; Sleep 2000
+            Sleep 305000
             ; Sleep 500
             ; Click %Buy_Confirmation_x% %Buy_Confirmation_y%
             ; Sleep 7000
@@ -89,7 +93,7 @@ RCP_y = %ResHeight%
         }
         else
         {
-            MsgBox, "Chrome not found"
+            MsgBox, %TwitchChannel% +"Chrome not found"
             break  ; Break out of this loop.
         }
 
