@@ -37,12 +37,14 @@
 
 Gui, Add, Text,, Resolution Width:
 Gui, Add, Text,, Resolution Height:
-Gui, Add, Text,, Channel Name:
+; Gui, Add, Text,, Channel Name:
+
 ; Gui, Add, Edit, w40 Number vResWidth ym, 1920  ; The ym option starts a new column of controls.
 ; Gui, Add, Edit, w40 Number vResHeight, 1080
+
 Gui, Add, Edit, w40 Number vResWidth ym, 1690  ; The ym option starts a new column of controls.
 Gui, Add, Edit, w40 Number vResHeight, 1030
-Gui, Add, Edit, w300 Limit vChannelName, Maximilian_DOOD
+; Gui, Add, Edit, w300 Limit vChannelName, Maximilian_DOOD
 Gui, Add, Button, default xm, OK
 Gui, Show,, Twitch AutoCollector
 return ;End auto-execution, wait for user input
@@ -71,12 +73,39 @@ RCP_y = %ResHeight%
 ; RCP_x := RCP_x * .899
 ; RCP_y := RCP_y * .954
 
+;Set this to 1 for starts with, 2 for includes, 3 for exact
+SetTitleMatchMode, 2
+
+; WinGet, OutputVar, ProcessName, %TwitchChannel%
+; MsgBox % "process found " . OutputVar
+
+WinGetTitle, OutputVar2 , Twitch
+; MsgBox % "twitch window " . OutputVar2
+
+
+
+SetTitleMatchMode, 3
+
+if WinExist(OutputVar2) 
+{   
     Loop 
     {
-        IfWinExist %TwitchChannel%
+        ; IfWinExist %TwitchChannel%
+        ; if WinExist("ahk_class Notepad") or WinExist("ahk_class" . ClassName)
+        ; if WinExist(OutputVar2) 
+
+        IfWinNotExist %OutputVar2%
+        {
+            MsgBox, "IfWinNotExist Twitch not found"
+            break  ; Break out of this loop.
+        }
+        
+        IfWinExist %OutputVar2%
         {   
-            WinActivate %TwitchChannel%
-	        WinMaximize 
+            ; MsgBox % "The active window's ID is " . WinExist("Twitch")
+            WinActivate, %OutputVar2%  ; Uses the last found window.
+            ; WinActivate %TwitchChannel%
+	        WinMaximize, %OutputVar2%
             ; Sleep 300000
             Sleep 2000
             Click %RCP_x% %RCP_y% 1
@@ -93,12 +122,18 @@ RCP_y = %ResHeight%
         }
         else
         {
-            MsgBox, %TwitchChannel% +"Chrome not found"
+            MsgBox, "Twitch not found"
             break  ; Break out of this loop.
         }
 
         
     }
+}
+else
+{
+    MsgBox, "Twitch not found"
+    ; break  ; Break out of this loop.
+}    
     
 ; }
 ; else
